@@ -9,12 +9,12 @@
 	<c:param name="scripts"></c:param>
 	<c:param name="content">
 		<section class="me-4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報更新完了</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目情報削除</h2>
 			<div class="alert alert-success text-center fs-5 py-4 rounded shadow">
-     			   学生の更新が正常に完了しました。
+     			   削除が完了しました。
 			</div>
 
-			<a href="StudentList.action">学生一覧</a>
+			<a href="SubjectList.action">科目一覧</a>
 			<c:if test="${not empty errors}">
 				<div class="alert alert-danger">
 					<ul>
