@@ -5,7 +5,7 @@ package bean;
 public class Subject {
 	private String cd;
 	private  String name;
-	private  String school;
+	private  School school;
 
 	public String getCd() {
 		return cd;
@@ -23,12 +23,14 @@ public class Subject {
 		this.name = name;
 	}
 
-	public String getSchool() {
+	public School getSchool() {
 		return school;
 	}
 
-	public void setSchool(String school) {
+	public void setSchool(School school) {
 		this.school = school;
 	}
+
+
 
 }
