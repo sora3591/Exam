@@ -24,7 +24,7 @@ public class SubjectCreateExecuteAction extends Action {
 
         String name = req.getParameter("name");
 
-        School school = (School) session.getAttribute("school");
+        School school = teacher.getSchool();
 
         Map<String, String> errors = new HashMap<>();
 
