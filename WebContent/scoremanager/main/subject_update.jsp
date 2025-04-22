@@ -9,7 +9,7 @@
 	<c:param name="scripts"></c:param>
 	<c:param name="content">
 		<section class="me-4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報更新</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目情報更新</h2>
 			<c:if test="${not empty errors}">
 				<div class="alert alert-danger">
 					<ul>
@@ -25,7 +25,7 @@
 
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-4">
-						<label class="form-label" for="subject-no-input">学生番号</label>
+						<label class="form-label" for="subject-no-input">科目番号</label>
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="cd" placeholder=""
 							style="ime-mode: disabled;" type="text" value="${no}" readonly />
@@ -47,7 +47,7 @@
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">変更</button>
 					</div>
-					<div class="col-2 text-center"><a href="subjectList.action">戻る</a></div>
+					<div class="col-2 text-center"><a href="SubjectList.action">戻る</a></div>
 					</form>
 
 
