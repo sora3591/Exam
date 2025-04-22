@@ -30,6 +30,9 @@ public class SubjectCreateExecuteAction extends Action {
 
         SubjectDao subjectDao = new SubjectDao();
 
+
+
+
         if (cd == null || cd.length() != 3) {
         	errors.put("f1", "科目コードは3文字で入力してください");
 
@@ -45,6 +48,9 @@ public class SubjectCreateExecuteAction extends Action {
                 session.setAttribute("errors", errors);  // セッションにエラーを保存
 
                 res.sendRedirect("SubjectCreate.action");  // 登録フォームにリダイレクト
+
+
+
 
             } else {
 
