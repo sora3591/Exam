@@ -15,12 +15,18 @@ public class SubjectUpdateAction extends Action{
 	public void execute(HttpServletRequest req,HttpServletResponse res)throws Exception{
 		HttpSession session=req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
+		
+
+		String no = req.getParameter("no");
 
 		SubjectDao subjectDao=new SubjectDao();
 
 		List<Subject> list = subjectDao.filter(teacher.getSchool());
 
 		req.setAttribute("subject", list);
+		req.setAttribute("no", no);
+
+
 
 		req.getRequestDispatcher("subject_update.jsp").forward(req, res);
 	}

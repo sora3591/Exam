@@ -23,7 +23,7 @@ public class SubjectDeleteAction extends Action{
 
 		req.setAttribute("subject", list);
 
-		req.getRequestDispatcher("student_delete.jsp").forward(req, res);
+		req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
 
 
 

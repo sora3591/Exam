@@ -21,7 +21,7 @@
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="cd" placeholder="科目コードを入力してください"
 							style="ime-mode: disabled;" type="text" value="${cd}" required />
-							<div class="mt-2 text-warning">${errors.get("f2") }</div>
+							
 					</div>
 				</div>
 

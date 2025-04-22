@@ -28,7 +28,7 @@
 						<label class="form-label" for="subject-no-input">学生番号</label>
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="cd" placeholder=""
-							style="ime-mode: disabled;" type="text" value="${cd}" readonly />
+							style="ime-mode: disabled;" type="text" value="${no}" readonly />
 					</div>
 				</div>
 
