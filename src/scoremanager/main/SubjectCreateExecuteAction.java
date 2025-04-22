@@ -30,6 +30,8 @@ public class SubjectCreateExecuteAction extends Action {
 
         SubjectDao subjectDao = new SubjectDao();
 
+        System.out.println(teacher.getSchool());
+
 
 
 
