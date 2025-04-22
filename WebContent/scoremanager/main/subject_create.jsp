@@ -41,7 +41,7 @@
 					</div>
 					</form>
 
-					<a href="StudentList.action">戻る</a>
+					<a href="SubjectList.action">戻る</a>
 					<div class="mt-2 text-warning">${errors.get("ent_year") }</div>
 
 

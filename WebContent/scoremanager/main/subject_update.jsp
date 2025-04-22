@@ -28,7 +28,7 @@
 						<label class="form-label" for="subject-no-input">学生番号</label>
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="cd" placeholder=""
-							style="ime-mode: disabled;" type="text" value="${subject.cd}" readonly />
+							style="ime-mode: disabled;" type="text" value="${cd}" readonly />
 					</div>
 				</div>
 
@@ -37,7 +37,7 @@
 						<label class="form-label" for="subject-name-input">科目名</label>
 						<input class="form-control" autocomplete="off"
 							id="id-input" maxlength="10" name="name" placeholder="科目名を入力してください"
-							style="ime-mode: disabled" type="text" value="${subject.name}"required />
+							style="ime-mode: disabled" type="text" value="${name}"required />
 					</div>
 				</div>
 
