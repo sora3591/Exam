@@ -45,9 +45,9 @@ public class SubjectCreateExecuteAction extends Action {
 
                 errors.put("f2", "科目コードが重複しています");
 
-                session.setAttribute("errors", errors);  // セッションにエラーを保存
-
-                res.sendRedirect("SubjectCreate.action");  // 登録フォームにリダイレクト
+                req.setAttribute("errors", errors);
+                req.getRequestDispatcher("subject_create.jsp").forward(req, res);
+                return;
 
 
 
@@ -76,7 +76,7 @@ public class SubjectCreateExecuteAction extends Action {
 
                     session.setAttribute("errorMessage", "登録が失敗しました");
 
-                    res.sendRedirect("subject_create.jsp");  // 登録フォームにリダイレクト
+                    res.sendRedirect("SubjectCreate.action");
 
                 }
             }
