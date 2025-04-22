@@ -53,7 +53,6 @@ public class SubjectListAction extends Action {
                         matches = false;
                     }
                 } catch (NumberFormatException e) {
-                    // DBに変な値が入ってたら無視
                     continue;
                 }
             }
