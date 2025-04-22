@@ -21,9 +21,9 @@
 			<form action ="SubjectDeleteExecute.action"method="get">
 
 					<div class="col-4">
-						<input hidden="form-control" autocomplete="off"
+						<label><p class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="subject_cd" placeholder=""
-							style="ime-mode: disabled;" type="text" value="${subject_name}(${subject_cd})を削除してもよろしいですか" />
+							style="ime-mode: disabled;" type="text" value={} />"${subject}(${no})を削除してもよろしいですか"</label>
 					</div>
 
 
