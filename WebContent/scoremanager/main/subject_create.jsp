@@ -21,8 +21,10 @@
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="cd" placeholder="科目コードを入力してください"
 							style="ime-mode: disabled;" type="text" value="${cd}" required />
-							
+
 					</div>
+					<div class="mt-2 text-warning">${errors.get("f1") }</div>
+					<div class="mt-2 text-warning">${errors.get("f2") }</div>
 				</div>
 
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
@@ -32,6 +34,7 @@
 							id="id-input" maxlength="10" name="name" placeholder="科目名を入力してください"
 							style="ime-mode: disabled" type="text" value="${name}"required >
 					</div>
+
 				</div>
 
 

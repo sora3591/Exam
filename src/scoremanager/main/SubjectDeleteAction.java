@@ -25,13 +25,12 @@ public class SubjectDeleteAction extends Action{
 
 		String no = req.getParameter("no");
 
-
+		Subject subject=subjectDao.get(no, teacher.getSchool());
 
 		List<Subject> list = subjectDao.filter(teacher.getSchool());
 
-		req.setAttribute("subject", list);
-		req.setAttribute("no",no);
-		req.setAttribute("school_cd",school);
+		req.setAttribute("subject", subject);
+
 
 		req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
 

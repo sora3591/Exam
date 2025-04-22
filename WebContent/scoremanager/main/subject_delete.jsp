@@ -21,14 +21,33 @@
 			<form action ="SubjectDeleteExecute.action"method="get">
 
 					<div class="col-4">
-						<label><p class="form-control" autocomplete="off"
-							id="no-input" maxlength="20" name="subject_cd" placeholder=""
-							style="ime-mode: disabled;" type="text" value={} />"${subject}(${no})を削除してもよろしいですか"</label>
+					<p>
+					「${subject.name}（${subject.cd}）」削除してもよろしいですか
+					</p>
 					</div>
 
 
+
+					<div class="col-4">
+
+						<input hidden="form-control" autocomplete="off"
+							id="no-input" maxlength="20" name="cd" placeholder="科目コードを入力してください"
+							style="ime-mode: disabled;" type="text" value="${subject.cd}" required />
+					</div>
+
+					<div class="col-4">
+
+						<input hidden="form-control" autocomplete="off"
+							id="no-input" maxlength="20" name="name" placeholder="科目コードを入力してください"
+							style="ime-mode: disabled;" type="text" value="${subject.name}" required />
+					</div>
+
+
+
+
+
 					<div class="mt-4">
-						<input class="w-39 btn btn-lg btn-primary" type="submit" name="login" value="削除"/>
+						<input class="w-39 btn btn-lg btn-danger" type="submit" name="login" value="削除"/>
 					</div>
 
 					<div class="col-2 text-center"><a href="SubjectList.action">戻る</a></div>

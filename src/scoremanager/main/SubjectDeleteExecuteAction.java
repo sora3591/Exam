@@ -17,9 +17,9 @@ public class SubjectDeleteExecuteAction extends Action{
 
 		     // フォームからの入力データを取得
 
-		     String subject_cd = req.getParameter("subject_cd");  // 学生番号
+		     String subject_cd = req.getParameter("cd");  // 学生番号
 
-		     String subject_name = req.getParameter("subject_name");  // 氏名
+		     String subject_name = req.getParameter("name");  // 氏名
 
 		     SubjectDao subjectDao=new SubjectDao();
 
@@ -27,6 +27,10 @@ public class SubjectDeleteExecuteAction extends Action{
 
 		     subject.setCd(subject_cd);
 		     subject.setName(subject_name);
+		     subject.setSchool(teacher.getSchool());
+
+		     System.out.println(subject_cd);
+		     System.out.println(subject_name);
 
 		     boolean delete=subjectDao.delete(subject);
 
