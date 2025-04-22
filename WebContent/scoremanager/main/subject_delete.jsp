@@ -18,12 +18,12 @@
 				</div>
 
 			</c:if>
-			<form action ="StudentDeleteExecute.action"method="get">
+			<form action ="SubjectDeleteExecute.action"method="get">
 
 					<div class="col-4">
 						<input hidden="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="subject_cd" placeholder=""
-							style="ime-mode: disabled;" type="text" value="${subject.name}(${subject.cd})を削除してもよろしいですか" />
+							style="ime-mode: disabled;" type="text" value="${subject_name}(${subject_cd})を削除してもよろしいですか" />
 					</div>
 
 
@@ -37,4 +37,5 @@
 		</section>
 	</c:param>
 </c:import>
+
 
