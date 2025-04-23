@@ -49,7 +49,7 @@
 
 
 			<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-			<div class="col-4">
+				<div class="col-4">
 						<label class="form-label" for="student-class_num-select">クラス</label>
 						<select class="form-select" id="student-class_num-select" name="class_num">
 
@@ -58,8 +58,8 @@
 								<option value="${num }"<c:if test="${num==class_num }">selected</c:if>>${num }</option>
 							</c:forEach>
 						</select>
-					</div>
-					</div>
+				</div>
+			</div>
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">登録して終了</button>
 					</div>
