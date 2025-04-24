@@ -48,6 +48,10 @@ public class TestRegistAction extends Action{
 		for (Subject subject : subjectList) {
 		    subjectNames.add(subject.getName());
 		}
+		
+		
+
+
 
 		req.setAttribute("subjectname",subjectNames);
 
