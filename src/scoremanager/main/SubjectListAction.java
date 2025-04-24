@@ -29,6 +29,8 @@ public class SubjectListAction extends Action {
 
         subjectCdStr = req.getParameter("f1");
         subjectName = req.getParameter("f2");
+        
+       
 
         if (subjectCdStr != null && !subjectCdStr.isEmpty()) {
             try {
