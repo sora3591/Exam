@@ -69,6 +69,7 @@ public class SubjectListAction extends Action {
             }
         }
 
+       
         // 属性をセット
         req.setAttribute("f1", subjectCdStr);
         req.setAttribute("f2", subjectName);
