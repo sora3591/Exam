@@ -49,18 +49,10 @@
 								<option value="${subjectname }"<c:if test="${name==f3 }">selected</c:if>>${subjectname }</option>
 							</c:forEach>
 						</select>
-					</div>
+					</div>]
+					
 
-					<div class="col-4">
-						<label class="form-label" for="student-f4-select">回数</label>
-						<select class="form-select" id="student-f4-select" name="f4">
-							<option value="0">--------</option>
-							<c:forEach var="num" items="${class_num_set}">
-								<%--現在のyearと選択されていたf2が一致していた場合selectedを追記 --%>
-								<option value="${num }"<c:if test="${num==f2 }">selected</c:if>>${num }</option>
-							</c:forEach>
-						</select>
-					</div>
+					
 
 
 					</div>

@@ -15,17 +15,18 @@ import dao.SubjectDao;
 import tool.Action;
 
 public class TestListAction extends Action{
-	@Override
-	public void execute(HttpServletRequest req,HttpServletResponse res)throws Exception{
-		HttpSession session=req.getSession();
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        HttpSession session = req.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("user");
+
+
 		String entYearStr="";//入力された入学年度
 		String classNum="";//入力されたクラス番号
-		Teacher teacher=(Teacher)session.getAttribute("user");
+		int entYear=0;//入学年度
 		LocalDate todaysDate=LocalDate.now();//LocalDateインスタンスを取得
 		int year=todaysDate.getYear();//現在の年を取得
 		ClassNumDao cNumDao=new ClassNumDao();//クラス番号Daoを初期化
-		SubjectDao subjectDao=new SubjectDao();
-
+        SubjectDao subjectDao = new SubjectDao();
 
 
 		List<Integer>entYearSet = new ArrayList<>();
@@ -33,22 +34,44 @@ public class TestListAction extends Action{
 		for(int i=year-10; i<year+1;i++){
 			entYearSet.add(i);
 		}
-		//DBからデータを取得３
+
 		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> list=cNumDao.filter(teacher.getSchool());
 
-		List<Subject> list2=subjectDao.filter(teacher.getSchool());
-		System.out.println(list2);
+
+		List<Subject> subjectList = subjectDao.filter(teacher.getSchool());
+
+		// 科目名だけを取り出す（必要なら）
+		List<String> subjectNames = new ArrayList<>();
+		for (Subject subject : subjectList) {
+		    subjectNames.add(subject.getName());
+		}
+
+		// 取得した subjectNames をリクエストスコープなどに保存したい場合
+		req.setAttribute("subjectname", subjectNames);
 
 
 
 
 
-		req.setAttribute("class_num_set",list);
+		//リクエストに入学年度をセット
+		req.setAttribute("f1",entYear);
+		//リクエストにクラス番号をセット
+		req.setAttribute("f2",classNum);
+
+//		req.setAttribute("f3", subjects);
+
+
 		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("subjects", list2);
-		//JSPへフォワード７
+		req.setAttribute("class_num_set",list);
+
+
+
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
 
+
+
+
+
 }
-	}
+}

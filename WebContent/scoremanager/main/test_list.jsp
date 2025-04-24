@@ -46,6 +46,14 @@
 							</c:forEach>
 						</select>
 					</div>
+					<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+					<div class="col-4">
+						<label class="form-label" for="subject-name-input">学生番号</label>
+						<input class="form-control" autocomplete="off"
+							id="id-input" maxlength="10" name="name" placeholder="学生番号を入力してください"
+							style="ime-mode: disabled" type="text" value="${name}"required />
+					</div>
+				</div>
 
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">絞込み</button>
