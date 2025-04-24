@@ -29,8 +29,7 @@ public class SubjectDeleteExecuteAction extends Action{
 		     subject.setName(subject_name);
 		     subject.setSchool(teacher.getSchool());
 
-		     System.out.println(subject_cd);
-		     System.out.println(subject_name);
+
 
 		     boolean delete=subjectDao.delete(subject);
 
