@@ -45,36 +45,16 @@ public class TestRegistAction extends Action{
         List<Subject> subjects = new ArrayList<>();
 
 
-        // 全件取得
-        List<Subject> allSubjects = subjectDao.filter(teacher.getSchool());
+        List<Subject> subjectList = subjectDao.filter(teacher.getSchool());
 
-        // Java側でフィルター処理
-        for (Subject subject : allSubjects) {
-            boolean matches = true;
+		// 科目名だけを取り出す（必要なら）
+		List<String> subjectNames = new ArrayList<>();
+		for (Subject subject : subjectList) {
+		    subjectNames.add(subject.getName());
+		}
 
-            // 科目コードによるフィルター（部分一致）
-            if (subjectCd != 0) {
-                try {
-                    int subjectCdFromDb = Integer.parseInt(subject.getCd());
-                    if (subjectCdFromDb != subjectCd) {
-                        matches = false;
-                    }
-                } catch (NumberFormatException e) {
-                    continue;
-                }
-            }
-
-            // 科目名によるフィルター（部分一致）
-            if (subjectName != null && !subjectName.isEmpty() && !subjectName.equals("0")) {
-                if (!subject.getName().contains(subjectName)) {
-                    matches = false;
-                }
-            }
-
-            if (matches) {
-                subjects.add(subject);
-            }
-        }
+		// 取得した subjectNames をリクエストスコープなどに保存したい場合
+		req.setAttribute("subjectname", subjectNames);
 
 
 
@@ -95,7 +75,7 @@ public class TestRegistAction extends Action{
 
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 
-		System.out.println(allSubjects);
+
 
 
 
