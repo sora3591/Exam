@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Student;
 import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDao;
+import dao.TestDao;
 import tool.Action;
 
 public class TestRegistAction extends Action{
@@ -22,12 +25,20 @@ public class TestRegistAction extends Action{
 
 		String entYearStr="";//入力された入学年度
 		String classNum="";//入力されたクラス番号
-		int entYear=0;//入学年度
 		LocalDate todaysDate=LocalDate.now();//LocalDateインスタンスを取得
 		int year=todaysDate.getYear();//現在の年を取得
 		ClassNumDao cNumDao=new ClassNumDao();//クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao();
+        int entYear=0;//入学年度
         int times = 0; 		//回数
+        TestDao testDao = new TestDao();	//成績情報
+        StudentDao studentDao = new StudentDao();
+
+
+
+
+
+
 
 
 		List<Integer>entYearSet = new ArrayList<>();
@@ -48,12 +59,15 @@ public class TestRegistAction extends Action{
 		for (Subject subject : subjectList) {
 		    subjectNames.add(subject.getName());
 		}
-		
-		
+
+
+
 
 
 
 		req.setAttribute("subjectname",subjectNames);
+		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("class_num_set",list);
 
 
 
@@ -62,13 +76,23 @@ public class TestRegistAction extends Action{
 		//リクエストにクラス番号をセット
 		req.setAttribute("f2",classNum);
 
-		//req.setAttribute("f3", subjectNames);
+		req.setAttribute("f3", subjectNames);
+
+		if(req.getParameter("f1")!=null){
+		List<Student>students=null;
+
+		boolean isAttend= true;
+
+		int entYear2 = Integer.parseInt(req.getParameter("f1"));
+
+		String classNum2=req.getParameter("f2");
 
 
-		req.setAttribute("ent_year_set", entYearSet);
-		req.setAttribute("class_num_set",list);
 
+		students=studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
 
+		req.setAttribute("student",students);
+		}
 
 
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
