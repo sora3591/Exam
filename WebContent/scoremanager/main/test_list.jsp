@@ -10,10 +10,8 @@
 	<c:param name="content">
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生管理</h2>
-			<div class=" my-2 text-end px-4">
-				<a href="StudentCreate.action">新規登録</a>
-			</div>
-			<form method="get">
+
+			<form action = "test.action"method="get">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-4">
 						<label class="form-label" for="student-f1-select">入学年度</label>
@@ -36,31 +34,43 @@
 						</select>
 					</div>
 
-					<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+
 					<div class="col-4">
 						<label class="form-label" for="student-f1-select">科目</label>
-						<select class="form-select" id="student-f1-select" name="f1">
+						<select class="form-select" id="student-f1-select" name="f3">
 							<option value="0">--------</option>
-							<c:forEach var="subjects" items="${subjects}">
-								<option value="${subjects }"<c:if test="${year==f1 }">selected</c:if>>${subjects.name }</option>
+							<c:forEach var="f3" items="${f3}">
+								<option value="${f3} }"<c:if test="${year==f3 }">selected</c:if>>${f3 }</option>
 							</c:forEach>
 						</select>
 					</div>
-					<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+					<div class="col-2 text-center">
+						<button class="btn btn-secondary" id="filter-button">検索</button>
+					</div>
+
+
+					</div>
+
+					</form>
+					<form action = "test.action"method="get">
+				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+
 					<div class="col-4">
 						<label class="form-label" for="subject-name-input">学生番号</label>
 						<input class="form-control" autocomplete="off"
 							id="id-input" maxlength="10" name="name" placeholder="学生番号を入力してください"
 							style="ime-mode: disabled" type="text" value="${name}"required />
 					</div>
-				</div>
+
 
 					<div class="col-2 text-center">
 						<button class="btn btn-secondary" id="filter-button">絞込み</button>
 					</div>
+					</div>
 					<div class="mt-2 text-warning">${errors.get("f1") }</div>
-				</div>
+
 			</form>
+			<p>科目情報を選択または、学生情報を入力して検索ボタンをクリックしてください</p>
 
 
 		</section>

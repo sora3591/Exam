@@ -14,7 +14,7 @@
 		<section class="me-4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
-			<form action ="TestRegistExecute.action"method="get">
+			<form action ="TestRegist.action"method="get">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 
 
@@ -49,10 +49,19 @@
 								<option value="${subjectname }"<c:if test="${name==f3 }">selected</c:if>>${subjectname }</option>
 							</c:forEach>
 						</select>
-					</div>]
-					
+					</div>
+					<div class="col-4">
+						<label class="form-label" for="student-f2-select">回数</label>
+						<select class="form-select" id="student-f2-select" name="f4">
+							<option value="0">--------</option>
+							<c:forEach var="num" items="${class_num_set}">
+								<%--現在のyearと選択されていたf2が一致していた場合selectedを追記 --%>
+								<option value="${num }"<c:if test="${num==f2 }">selected</c:if>>${num }</option>
+							</c:forEach>
+						</select>
+					</div>
 
-					
+
 
 
 					</div>
@@ -63,8 +72,39 @@
 					</div>
 
 
+
 			</form>
+			<form action ="TestRegistExecute.action"method="get">
+
+
+
+					<div class="col-4">
+			<table class="table table-hover">
+						<tr>
+							<th>入学年度</th>
+							<th>学生番号</th>
+							<th>氏名</th>
+							<th>クラス</th>
+
+							<th></th>
+							<th></th>
+						</tr>
+						<c:forEach var="student" items="${student }">
+							<tr>
+								<td>${student.entYear }</td>
+								<td>${student.no }</td>
+								<td>${student.name }</td>
+								<td>${student.classNum }</td>
+								</tr>
+								</c:forEach>
+								</table>
+								</div>
+
+								</form>
 		</section>
+
+
+
 
 	</c:param>
 </c:import>

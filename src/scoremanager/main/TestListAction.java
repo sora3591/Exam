@@ -27,6 +27,8 @@ public class TestListAction extends Action{
 		int year=todaysDate.getYear();//現在の年を取得
 		ClassNumDao cNumDao=new ClassNumDao();//クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao();
+        int times = 0; 		//回数
+
 
 
 		List<Integer>entYearSet = new ArrayList<>();
@@ -43,14 +45,15 @@ public class TestListAction extends Action{
 
 		// 科目名だけを取り出す（必要なら）
 		List<String> subjectNames = new ArrayList<>();
+
 		for (Subject subject : subjectList) {
 		    subjectNames.add(subject.getName());
 		}
 
-		// 取得した subjectNames をリクエストスコープなどに保存したい場合
-		req.setAttribute("subjectname", subjectNames);
 
 
+
+		req.setAttribute("f3",subjectNames);
 
 
 
@@ -59,11 +62,13 @@ public class TestListAction extends Action{
 		//リクエストにクラス番号をセット
 		req.setAttribute("f2",classNum);
 
-//		req.setAttribute("f3", subjects);
+
 
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("class_num_set",list);
+
+
 
 
 

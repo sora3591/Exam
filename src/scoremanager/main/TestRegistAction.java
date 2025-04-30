@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Student;
 import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDao;
 import tool.Action;
 
@@ -27,6 +29,8 @@ public class TestRegistAction extends Action{
 		int year=todaysDate.getYear();//現在の年を取得
 		ClassNumDao cNumDao=new ClassNumDao();//クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao();
+        int times = 0; 		//回数
+
 
 
 		List<Integer>entYearSet = new ArrayList<>();
@@ -43,14 +47,15 @@ public class TestRegistAction extends Action{
 
 		// 科目名だけを取り出す（必要なら）
 		List<String> subjectNames = new ArrayList<>();
+
 		for (Subject subject : subjectList) {
 		    subjectNames.add(subject.getName());
 		}
 
-		// 取得した subjectNames をリクエストスコープなどに保存したい場合
-		req.setAttribute("subjectname", subjectNames);
 
 
+
+		req.setAttribute("subjectname",subjectNames);
 
 
 
@@ -59,12 +64,24 @@ public class TestRegistAction extends Action{
 		//リクエストにクラス番号をセット
 		req.setAttribute("f2",classNum);
 
-//		req.setAttribute("f3", subjects);
+		//req.setAttribute("f3", subjectNames);
 
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("class_num_set",list);
 
+
+		List<Student>students=null;
+
+		boolean isAttend= true;
+		 int entYear2 = Integer.parseInt(req.getParameter("f1"));
+		 String classNum2=req.getParameter("f2");
+
+
+
+		StudentDao studentDao=new StudentDao();
+		students=studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
+		req.setAttribute("student",students);
 
 
 		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
