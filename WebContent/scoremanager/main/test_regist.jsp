@@ -74,37 +74,54 @@
 
 
 			</form>
-			<form action ="TestRegistExecute.action"method="get">
 
 
 
-					<div class="col-4">
-			<table class="table table-hover">
-						<tr>
-							<th>入学年度</th>
-							<th>学生番号</th>
-							<th>氏名</th>
-							<th>クラス</th>
 
-							<th></th>
-							<th></th>
-						</tr>
-						<c:forEach var="student" items="${student }">
+
+			<c:choose>
+				<c:when test="${student.size()>0}">
+						<div></div>
+						<p>科目:${subjectName}(${times}回)</p>
+					<form action ="TestRegistExecute.action"method="get">
+
+
+						<table class="table table-hover">
 							<tr>
-								<td>${student.entYear }</td>
-								<td>${student.no }</td>
-								<td>${student.name }</td>
-								<td>${student.classNum }</td>
+									<th>入学年度</th>
+									<th>学生番号</th>
+									<th>氏名</th>
+									<th>クラス</th>
+									<th>点数</th>
+							</tr>
+							<c:forEach var="student" items="${student }">
+								<tr>
+									<td>${student.entYear }</td>
+									<td>${student.no }</td>
+									<td>${student.name }</td>
+									<td>${student.classNum }</td>
+									<td>
+									<input class="form-control" autocomplete="off"
+										id="no-input" maxlength="20" name="point_${test.student.no}" placeholder=""
+										style="ime-mode: disabled;" type="text" value="${test.point}" required />
+									</td>
+
 								</tr>
-								</c:forEach>
-								</table>
-								</div>
+							</c:forEach>
+						</table>
 
-								</form>
+						<div class="col-2 text-center">
+							<button class="btn btn-secondary" id="filter-button">登録して終了</button>
+						</div>
+
+					</form>
+				</c:when>
+
+				<c:otherwise>
+					<div></div>
+				</c:otherwise>
+			</c:choose>
 		</section>
-
-
-
 
 	</c:param>
 </c:import>
