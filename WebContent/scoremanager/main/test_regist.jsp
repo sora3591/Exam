@@ -65,7 +65,7 @@
 			<c:choose>
 				<c:when test="${student.size() > 0}">
 					<div></div>
-					<p>科目: ${subjectName}(${times}回)</p>
+					<p>科目: ${subjectname}(${times}回)</p>
 					<form action="TestRegistExecute.action" method="get">
 						<table class="table table-hover">
 							<tr>

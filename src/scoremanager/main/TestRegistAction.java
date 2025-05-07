@@ -67,8 +67,11 @@ public class TestRegistAction extends Action{
 
 
 		req.setAttribute("subjectname",subjectNames);
+		req.setAttribute("times", times);
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("class_num_set",list);
+
+
 
 
 
@@ -78,6 +81,8 @@ public class TestRegistAction extends Action{
 		req.setAttribute("f2",classNum);
 
 		req.setAttribute("f3", subjectNames);
+
+		req.setAttribute("f4", times);
 
 		if(req.getParameter("f1")!=null){
 		List<Student>students=null;
