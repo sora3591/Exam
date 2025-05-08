@@ -2,7 +2,7 @@ package bean;
 
 public class TestListStudent {
 	private String subjectName;
-	private String SubjectCd ;
+	private String subjectCd ;
 	private int num;
 	private int point;
 
@@ -12,12 +12,7 @@ public class TestListStudent {
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-	public String getSubjectCd() {
-		return SubjectCd;
-	}
-	public void setSubjectCd(String subjectCd) {
-		SubjectCd = subjectCd;
-	}
+
 	public int getNum() {
 		return num;
 	}
@@ -29,5 +24,11 @@ public class TestListStudent {
 	}
 	public void setPoint(int point) {
 		this.point = point;
+	}
+	public String getSubjectCd() {
+		return subjectCd;
+	}
+	public void setSubjectCd(String subjectCd) {
+		this.subjectCd = subjectCd;
 	}
 }

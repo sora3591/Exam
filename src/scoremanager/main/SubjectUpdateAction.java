@@ -1,6 +1,8 @@
 package scoremanager.main;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,8 @@ public class SubjectUpdateAction extends Action{
 	public void execute(HttpServletRequest req,HttpServletResponse res)throws Exception{
 		HttpSession session=req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
-		
+		 Map<String, String> errors = new HashMap<>();
+
 
 		String no = req.getParameter("no");
 
@@ -25,6 +28,8 @@ public class SubjectUpdateAction extends Action{
 
 		req.setAttribute("subject", list);
 		req.setAttribute("no", no);
+
+		 
 
 
 

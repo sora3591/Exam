@@ -30,6 +30,8 @@ public class SubjectListAction extends Action {
         subjectCdStr = req.getParameter("f1");
         subjectName = req.getParameter("f2");
 
+
+
         if (subjectCdStr != null && !subjectCdStr.isEmpty()) {
             try {
                 subjectCd = Integer.parseInt(subjectCdStr);
@@ -40,6 +42,7 @@ public class SubjectListAction extends Action {
 
         // 全件取得
         List<Subject> allSubjects = cDao.filter(teacher.getSchool());
+
 
         // Java側でフィルター処理
         for (Subject subject : allSubjects) {
@@ -68,6 +71,7 @@ public class SubjectListAction extends Action {
                 subjects.add(subject);
             }
         }
+
 
         // 属性をセット
         req.setAttribute("f1", subjectCdStr);
