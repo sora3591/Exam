@@ -33,25 +33,23 @@ public class SubjectUpdateExecuteAction extends Action{
 
 
 		     List<Subject> allSubjects = subjectDao.filter(teacher.getSchool());
-		     for (Subject subjects : allSubjects) {
+		     String subjectcd_list[]={};
+		     boolean found = false;
+			for (Subject s : allSubjects) {
+		            if (s.getCd().equals(subject_cd)) {
+		                found = true;
+		                break;
+		            }
+		        }
 
-		    	 if(subjects.getCd() == subject_cd){
-		    		 break;
-		    	 }
-		    	 else
-		    	 {
-		    		 errors.put("f1", "科目コードが存在してません");
-		    		  req.setAttribute("errors", errors);
-		    		  req.setAttribute("no", subject_cd);
-		              req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+		        if (!found) {
+		            errors.put("f1", "科目コードが存在していません");
+		            req.setAttribute("errors", errors);
+		            req.setAttribute("no", subject_cd);
+		            req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+		            return;
+		        }
 
-		                return;
-
-
-
-		    	 }
-
-		     }
 
 
 
@@ -81,4 +79,4 @@ public class SubjectUpdateExecuteAction extends Action{
 
 	         }
 	}
-}
+	}
