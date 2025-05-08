@@ -39,9 +39,6 @@ public class TestRegistAction extends Action{
 
 
 
-
-
-
 		List<Integer>entYearSet = new ArrayList<>();
 		//１０年前から１年後まで年をリストに追加
 		for(int i=year-10; i<year+1;i++){
@@ -60,8 +57,6 @@ public class TestRegistAction extends Action{
 		for (Subject subject : subjectList) {
 		    subjectNames.add(subject.getName());
 		}
-
-
 
 
 
@@ -88,11 +83,16 @@ public class TestRegistAction extends Action{
 
 		String classNum2=req.getParameter("f2");
 
+		String subjectnames=req.getParameter("f3");
+		String items=req.getParameter("f4");
+
+		req.setAttribute("subjectNames", subjectnames);
 
 
 		students=studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
 
 		req.setAttribute("student",students);
+		req.setAttribute("times",items);
 		}
 
 
