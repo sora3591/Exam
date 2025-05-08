@@ -39,6 +39,7 @@
 							id="id-input" maxlength="20" name="name" placeholder="科目名を入力してください"
 							style="ime-mode: disabled" type="text" value="${name}"required />
 					</div>
+					<div class="mt-2 text-warning">${errors.get("f1") }</div>
 				</div>
 
 

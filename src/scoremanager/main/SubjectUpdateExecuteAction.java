@@ -1,5 +1,9 @@
 package scoremanager.main;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,20 +18,49 @@ public class SubjectUpdateExecuteAction extends Action{
 		 HttpSession session = req.getSession();
 
 		   Teacher teacher = (Teacher) session.getAttribute("user");  // セッションから教師情報を取得
+		   Map<String, String> errors = new HashMap<>();
+
 
 		     // フォームからの入力データを取得
 
-		     String subject_cd = req.getParameter("cd");  // 学生番号
+		     String subject_cd = req.getParameter("cd");
 
-		     String subject_name = req.getParameter("name");  // 氏名
+		     String subject_name = req.getParameter("name");
 
 		     SubjectDao subjectDao=new SubjectDao();
 
 		     Subject subject=new Subject();
 
+
+		     List<Subject> allSubjects = subjectDao.filter(teacher.getSchool());
+		     for (Subject subjects : allSubjects) {
+
+		    	 if(subjects.getCd() == subject_cd){
+		    		 break;
+		    	 }
+		    	 else
+		    	 {
+		    		 errors.put("f1", "科目コードが存在してません");
+		    		  req.setAttribute("errors", errors);
+		    		  req.setAttribute("no", subject_cd);
+		              req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+
+		                return;
+
+
+
+		    	 }
+
+		     }
+
+
+
 		     subject.setCd(subject_cd);
 		     subject.setName(subject_name);
 		     subject.setSchool(teacher.getSchool());
+
+
+
 
 		     boolean sava =subjectDao.save(subject);
 
