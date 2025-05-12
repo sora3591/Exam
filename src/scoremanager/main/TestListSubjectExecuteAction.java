@@ -13,11 +13,12 @@ import javax.servlet.http.HttpSession;
 import bean.Subject;
 import bean.Teacher;
 import bean.TestListSubject;
+import dao.ClassNumDao;
 import dao.SubjectDao;
 import dao.TestListSubjectDao;
 import tool.Action;
 
-public class SubjectScoreListExecute extends Action {
+public class TestListSubjectExecuteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -40,24 +41,30 @@ public class SubjectScoreListExecute extends Action {
         }
         req.setAttribute("yearList", yearList);
 
+        // クラス一覧を取得
+        ClassNumDao classNumDao = new ClassNumDao();
+        List<String> classList = classNumDao.filter(teacher.getSchool());
+        req.setAttribute("classList", classList);
+
         // 科目リストを取得
         SubjectDao subjectDao = new SubjectDao();
         List<Subject> subjectList = subjectDao.filter(teacher.getSchool());
         req.setAttribute("subjectList", subjectList);
 
-
-
         // パラメータの取得とバリデーション
         String yearStr = req.getParameter("year");
+        String classNumStr = req.getParameter("classNum");
         String subjectIdStr = req.getParameter("subjectId");
 
         // エラーメッセージ用のマップ
         Map<String, String> errors = new HashMap<>();
 
         // 検索条件が指定されている場合
-        if (yearStr != null && subjectIdStr != null) {
+        if (yearStr != null && classNumStr != null && subjectIdStr != null) {
             int year = 0;
+            String classNum = null;
             String subjectCd = null;
+
             // 年度のバリデーション
             try {
                 year = Integer.parseInt(yearStr);
@@ -67,6 +74,14 @@ public class SubjectScoreListExecute extends Action {
             } catch (NumberFormatException e) {
                 errors.put("year", "年度を選択してください。");
             }
+
+            // クラス番号のバリデーション
+            if (classNumStr == null || classNumStr.isEmpty()) {
+                errors.put("classNum", "クラスを選択してください。");
+            } else {
+                classNum = classNumStr;
+            }
+
             // 科目IDのバリデーション
             if (subjectIdStr == null || subjectIdStr.equals("0") || subjectIdStr.isEmpty()) {
                 errors.put("subjectId", "科目を選択してください。");
@@ -88,8 +103,8 @@ public class SubjectScoreListExecute extends Action {
                 }
 
                 if (selectedSubject != null) {
-                    // 成績データを取得（年度・科目のみでfilter）
-                    List<TestListSubject> scoreList = testListSubjectDao.filter(year, null, selectedSubject, teacher.getSchool());
+                    // 成績データを取得（年度・クラス・科目でfilter）
+                    List<TestListSubject> scoreList = testListSubjectDao.filter(year, classNum, selectedSubject, teacher.getSchool());
 
                     // 点数の最大値でソート
                     if (scoreList != null && !scoreList.isEmpty()) {
@@ -120,6 +135,7 @@ public class SubjectScoreListExecute extends Action {
                 }
 
                 req.setAttribute("selectedYear", year);
+                req.setAttribute("selectedClassNum", classNum);
                 req.setAttribute("selectedSubjectId", subjectCd);
             }
         }
