@@ -79,7 +79,7 @@
                     <td>
                         <input class="form-control" autocomplete="off" maxlength="3"
                                name="point_${student.no}" type="text"
-                               value="${testMap[student.no]}" required pattern="^(100|[1-9]?[0-9])$"
+                               value="${point_map[student.no]}" required pattern="^(100|[1-9]?[0-9])$"
                                title="0~100の範囲で入力してください" />
                     </td>
                 </tr>

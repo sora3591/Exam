@@ -1,4 +1,3 @@
-
 package scoremanager.main;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -66,11 +65,13 @@ public class TestRegistAction extends Action {
             boolean isAttend = true;
             int entYear2 = Integer.parseInt(req.getParameter("f1"));
             String classNum2 = req.getParameter("f2");
+            req.setAttribute("f2", classNum2);
             students = studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
             req.setAttribute("student", students);
+            String subjects = req.getParameter("f3");
+            req.setAttribute("f3", subjects);
         }
 
         req.getRequestDispatcher("test_regist.jsp").forward(req, res);
     }
 }
-
