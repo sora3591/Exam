@@ -26,7 +26,7 @@
 						<select class="form-select" id="subject-select" name="subjectId">
 							<option value="0">--------</option>
 							<c:forEach var="subject" items="${subjectList}">
-								<option value="${subject.id}" <c:if test="${subject.id==selectedSubjectId}">selected</c:if>>${subject.name}</option>
+								<option value="${subject.cd}" <c:if test="${subject.cd==selectedSubjectId}">selected</c:if>>${subject.name}</option>
 							</c:forEach>
 						</select>
 					</div>

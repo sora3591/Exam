@@ -26,7 +26,7 @@
 						<label class="form-label" for="student-ent_year-select">入学年度</label>
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="ent_year" placeholder=""
-							style="ime-mode: disabled;" type="text" value="${student.entYear}" readonly />
+							style="ime-mode: disabled;" type="text" value="${ent_year}" readonly />
 					</div>
 				</div>
 
@@ -35,7 +35,7 @@
 						<label class="form-label" for="student-no-input">学生番号</label>
 						<input class="form-control" autocomplete="off"
 							id="no-input" maxlength="20" name="no" placeholder=""
-							style="ime-mode: disabled;" type="text" value="${student.no}" readonly />
+							style="ime-mode: disabled;" type="text" value="${no}" readonly />
 					</div>
 				</div>
 
