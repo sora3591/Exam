@@ -61,8 +61,6 @@ public class TestRegistExecuteAction extends Action {
             }
 
         }
-
-
         // エラーがあれば登録画面に戻す
         if (!errors.isEmpty()) {
             session.setAttribute("errors", errors);
