@@ -61,6 +61,7 @@
         <input type="hidden" name="f2" value="${f2}">
         <input type="hidden" name="f3" value="${f3}">
         <input type="hidden" name="f4" value="${f4}">
+        <input type="hidden" name="subjectcd" value="${subjectcd}">
 
         <table class="table table-hover">
             <tr>
