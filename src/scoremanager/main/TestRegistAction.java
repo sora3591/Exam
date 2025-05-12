@@ -68,25 +68,6 @@ public class TestRegistAction extends Action {
             String subjectnames=req.getParameter("f3");
             students = studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
             req.setAttribute("student", students);
-<<<<<<< HEAD
-            String subjects = req.getParameter("f3");
-            req.setAttribute("f3", subjects);
-=======
-            req.setAttribute("f2",classNum2);
-            req.setAttribute("f3",subjectnames);
-
-            String subjectNameToFind = req.getParameter("f3"); // 入力されたsubjectnameを取得
-            String subjectCd = null;
-
-            for (Subject subject : subjectList) {
-                if (subject.getName().equals(subjectNameToFind)) {
-                    subjectCd = subject.getCd();
-                    break;
-                }
-            }
-
-            req.setAttribute("subjectcd", subjectCd);
->>>>>>> branch 'master' of https://github.com/sora3591/Exam.git
 
         }
 
