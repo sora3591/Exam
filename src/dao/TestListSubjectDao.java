@@ -12,7 +12,7 @@ import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
-    private String baseSql = "SELECT * FROM test_list_subject WHERE ent_year = ? AND class_num = ? AND subject_cd = ? AND school_cd = ?";
+	private String baseSql = "SELECT t.*, s.ent_year FROM test t JOIN student s ON t.student_no = s.no WHERE s.ent_year = ? AND t.class_num = ? AND t.subject_cd = ? AND t.school_cd = ?";
 
     private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
         List<TestListSubject> list = new ArrayList<>();
