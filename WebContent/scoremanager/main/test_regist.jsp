@@ -31,14 +31,15 @@
         </div>
 
         <div class="col-4">
-            <label class="form-label" for="student-f3-select">科目</label>
-            <select class="form-select" id="student-f3-select" name="f3">
-                <option value="0">--------</option>
-                <c:forEach var="subjectname" items="${subjectname}">
-                    <option value="${subjectname}" <c:if test="${subjectname == f3}">selected</c:if>>${subjectname}</option>
-                </c:forEach>
-            </select>
-        </div>
+    		<label class="form-label" for="student-f3-select">科目</label>
+    		<select class="form-select" id="student-f3-select" name="f3">
+        		<option value="0">--------</option>
+        		<c:forEach var="subject" items="${subject_list}">
+            		<option value="${subject.cd}" <c:if test="${subject.cd == f3}">selected</c:if>>${subject.name}</option>
+        		</c:forEach>
+    		</select>
+		</div>
+
 
         <div class="col-4">
             <label class="form-label" for="student-f4-select">回数</label>
