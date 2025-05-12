@@ -61,6 +61,7 @@
         <input type="hidden" name="f2" value="${f2}">
         <input type="hidden" name="f3" value="${f3}">
         <input type="hidden" name="f4" value="${f4}">
+        <input type="hidden" name="subjectcd" value="${subjectcd}">
 
         <table class="table table-hover">
             <tr>
@@ -79,7 +80,7 @@
                     <td>
                         <input class="form-control" autocomplete="off" maxlength="3"
                                name="point_${student.no}" type="text"
-                               value="${point_map[student.no]}" required pattern="^(100|[1-9]?[0-9])$"
+                               value="${testMap[student.no]}" required pattern="^(100|[1-9]?[0-9])$"
                                title="0~100の範囲で入力してください" />
                     </td>
                 </tr>

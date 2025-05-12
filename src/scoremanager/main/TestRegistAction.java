@@ -65,11 +65,24 @@ public class TestRegistAction extends Action {
             boolean isAttend = true;
             int entYear2 = Integer.parseInt(req.getParameter("f1"));
             String classNum2 = req.getParameter("f2");
-            req.setAttribute("f2", classNum2);
+            String subjectnames=req.getParameter("f3");
             students = studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
             req.setAttribute("student", students);
-            String subjects = req.getParameter("f3");
-            req.setAttribute("f3", subjects);
+            req.setAttribute("f2",classNum2);
+            req.setAttribute("f3",subjectnames);
+
+            String subjectNameToFind = req.getParameter("f3"); // 入力されたsubjectnameを取得
+            String subjectCd = null;
+
+            for (Subject subject : subjectList) {
+                if (subject.getName().equals(subjectNameToFind)) {
+                    subjectCd = subject.getCd();
+                    break;
+                }
+            }
+
+            req.setAttribute("subjectcd", subjectCd);
+
         }
 
         req.getRequestDispatcher("test_regist.jsp").forward(req, res);
