@@ -52,7 +52,6 @@ public class TestListAction extends Action{
 
 
 
-
 		req.setAttribute("f3",subjectNames);
 
 
@@ -63,20 +62,10 @@ public class TestListAction extends Action{
 		req.setAttribute("f2",classNum);
 
 
-
-
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("class_num_set",list);
 
-
-
-
-
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
-
-
-
-
 
 }
 }

@@ -29,6 +29,7 @@ public class TestRegistExecuteAction extends Action {
         String timesStr = req.getParameter("f4");   // 回数
         String classNum = req.getParameter("f2");   // クラス
         String entYearStr = req.getParameter("f1"); // 入学年度
+        String subjectcd=req.getParameter("subjectcd");
 
         // 入力チェック
         int times = Integer.parseInt(timesStr);
@@ -37,9 +38,10 @@ public class TestRegistExecuteAction extends Action {
         StudentDao studentDao = new StudentDao();
         SubjectDao subjectDao = new SubjectDao();
         List<Student> students = studentDao.filter(school, entYear, classNum, true);
-        Subject subject = subjectDao.get(subjectName, school);
+        Subject subject = subjectDao.get(subjectcd, school);
 
         List<Test> testList = new ArrayList<>();
+
         for (Student student : students) {
             String paramName = "point_" + student.getNo();
             String pointStr = req.getParameter(paramName);
@@ -53,9 +55,13 @@ public class TestRegistExecuteAction extends Action {
                 test.setNo(times);
                 test.setPoint(point);
                 test.setClassNum(classNum);
+
                 testList.add(test);
+
             }
+
         }
+
 
         // エラーがあれば登録画面に戻す
         if (!errors.isEmpty()) {

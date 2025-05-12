@@ -127,6 +127,11 @@ public class TestDao extends Dao {
         int count = 0;
         ResultSet rSet = null;
 
+        if (test.getStudent() == null || test.getSubject() == null || test.getSchool() == null) {
+            throw new IllegalArgumentException("Test object is missing required associations (student, subject, or school).");
+        }
+
+
         try (
             PreparedStatement checkStmt = connection.prepareStatement(
                 "SELECT * FROM test WHERE student_no = ? AND subject_cd = ? AND school_cd = ? AND no = ?"
