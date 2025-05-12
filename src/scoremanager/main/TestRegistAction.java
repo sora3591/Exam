@@ -68,6 +68,9 @@ public class TestRegistAction extends Action {
             String classNum2 = req.getParameter("f2");
             students = studentDao.filter(teacher.getSchool(), entYear2, classNum2, isAttend);
             req.setAttribute("student", students);
+            String subjects = req.getParameter("f3");
+            req.setAttribute("f3", subjects);
+
         }
 
         req.getRequestDispatcher("test_regist.jsp").forward(req, res);
