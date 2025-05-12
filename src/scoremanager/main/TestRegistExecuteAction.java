@@ -75,6 +75,6 @@ public class TestRegistExecuteAction extends Action {
         testDao.save(testList);
 
         session.setAttribute("successMessage", "登録が完了しました。");
-        res.sendRedirect("test_regist_done.jsp");
+        req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
     }
 }

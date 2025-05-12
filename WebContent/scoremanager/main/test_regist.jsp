@@ -8,6 +8,7 @@
             <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
             <form action="TestRegist.action" method="get">
+
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-4">
             <label class="form-label" for="student-f1-select">入学年度</label>
@@ -49,6 +50,13 @@
         </div>
     </div>
 
+    <c:if test="${filterError && searchPerformed}">
+    <div class="alert alert-danger mx-3" role="alert">
+        入学年度、クラス、科目、回数をすべて選択してください。
+    </div>
+	</c:if>
+
+
     <div class="col-2 text-center">
         <button class="btn btn-secondary" id="filter-button">検索</button>
     </div>
@@ -88,7 +96,7 @@
         </table>
 
         <div class="col-2 text-center">
-            <button class="btn btn-secondary" id="submit-button">登録</button>
+            <button class="btn btn-secondary" id="submit-button">登録して終了</button>
         </div>
     </form>
 </c:if>
