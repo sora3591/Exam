@@ -63,13 +63,22 @@
 </form>
 
 <c:if test="${not empty student}">
-    <p>科目: ${f3}（${f4}回）</p>
+    <c:set var="subjectName" value="" />
+    <c:forEach var="subject" items="${subject_list}">
+        <c:if test="${subject.cd == f3}">
+            <c:set var="subjectName" value="${subject.name}" />
+        </c:if>
+    </c:forEach>
+
+    <p>科目: ${subjectName}（${f4}回）</p>
+
     <form action="TestRegistExecute.action" method="get">
         <input type="hidden" name="f1" value="${f1}">
         <input type="hidden" name="f2" value="${f2}">
         <input type="hidden" name="f3" value="${f3}">
         <input type="hidden" name="f4" value="${f4}">
-        <input type="hidden" name="subjectcd" value="${subjectcd}">
+        <input type="hidden" name="subjectcd" value="${f3}">
+
 
         <table class="table table-hover">
             <tr>
