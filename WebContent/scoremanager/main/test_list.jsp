@@ -42,6 +42,9 @@
 								</c:forEach>
 							</select>
 						</div>
+						<div class="col-md-2 d-flex align-items-end">
+							<button type="submit" class="btn btn-secondary" id="filter-subject-button">検索</button>
+						</div>
 					</div>
 				</fieldset>
 				<fieldset>
@@ -51,11 +54,11 @@
 							<label class="form-label" for="student-f4-input">学生番号</label>
 							<input class="form-control" type="text" id="student-f4-input" name="f4" value="${f4}" placeholder="学生番号を入力してください" maxlength="10">
 						</div>
+						<div class="col-md-2 d-flex align-items-end">
+							<button type="submit" class="btn btn-primary" id="filter-student-no-button">絞込み</button>
+						</div>
 					</div>
 				</fieldset>
-				<div class="col-12 text-center mt-3">
-					<button type="submit" class="btn btn-secondary" id="filter-button">検索</button>
-				</div>
 			</form>
 
 			<c:if test="${searched}">
