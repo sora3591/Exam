@@ -33,6 +33,7 @@ public class StudentUpdateAction extends Action {
 
 	    // 取得した学生情報をリクエスト属性に設定
 	    req.setAttribute("student", student);
+	    req.setAttribute("no", student.getNo());
 	    req.setAttribute("name", student.getName());
 	    req.setAttribute("class_num", student.getClassNum());
 	    req.setAttribute("ent_year", student.getEntYear());

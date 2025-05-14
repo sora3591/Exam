@@ -8,6 +8,7 @@
             <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
             <form action="TestRegist.action" method="get">
+
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-4">
             <label class="form-label" for="student-f1-select">入学年度</label>
@@ -30,14 +31,15 @@
         </div>
 
         <div class="col-4">
-            <label class="form-label" for="student-f3-select">科目</label>
-            <select class="form-select" id="student-f3-select" name="f3">
-                <option value="0">--------</option>
-                <c:forEach var="subjectname" items="${subjectname}">
-                    <option value="${subjectname}" <c:if test="${subjectname == f3}">selected</c:if>>${subjectname}</option>
-                </c:forEach>
-            </select>
-        </div>
+    		<label class="form-label" for="student-f3-select">科目</label>
+    		<select class="form-select" id="student-f3-select" name="f3">
+        		<option value="0">--------</option>
+        		<c:forEach var="subject" items="${subject_list}">
+            		<option value="${subject.cd}" <c:if test="${subject.cd == f3}">selected</c:if>>${subject.name}</option>
+        		</c:forEach>
+    		</select>
+		</div>
+
 
         <div class="col-4">
             <label class="form-label" for="student-f4-select">回数</label>
@@ -49,18 +51,34 @@
         </div>
     </div>
 
+    <c:if test="${filterError && searchPerformed}">
+    <div class="alert alert-danger mx-3" role="alert">
+        入学年度、クラス、科目、回数をすべて選択してください。
+    </div>
+	</c:if>
+
     <div class="col-2 text-center">
         <button class="btn btn-secondary" id="filter-button">検索</button>
     </div>
 </form>
 
 <c:if test="${not empty student}">
-    <p>科目: ${f3}（${f4}回）</p>
+    <c:set var="subjectName" value="" />
+    <c:forEach var="subject" items="${subject_list}">
+        <c:if test="${subject.cd == f3}">
+            <c:set var="subjectName" value="${subject.name}" />
+        </c:if>
+    </c:forEach>
+
+    <p>科目: ${subjectName}（${f4}回）</p>
+
     <form action="TestRegistExecute.action" method="get">
         <input type="hidden" name="f1" value="${f1}">
         <input type="hidden" name="f2" value="${f2}">
         <input type="hidden" name="f3" value="${f3}">
         <input type="hidden" name="f4" value="${f4}">
+        <input type="hidden" name="subjectcd" value="${f3}">
+
 
         <table class="table table-hover">
             <tr>
@@ -79,7 +97,7 @@
                     <td>
                         <input class="form-control" autocomplete="off" maxlength="3"
                                name="point_${student.no}" type="text"
-                               value="${testMap[student.no]}" required pattern="^(100|[1-9]?[0-9])$"
+                               value="${test.point}" required pattern="^(100|[1-9]?[0-9])$"
                                title="0~100の範囲で入力してください" />
                     </td>
                 </tr>
@@ -87,7 +105,7 @@
         </table>
 
         <div class="col-2 text-center">
-            <button class="btn btn-secondary" id="submit-button">登録</button>
+            <button class="btn btn-secondary" id="submit-button">登録して終了</button>
         </div>
     </form>
 </c:if>

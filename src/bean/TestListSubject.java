@@ -3,11 +3,11 @@ package bean;
 import java.util.Map;
 
 public class TestListSubject {
-    private int entYear;
-    private String studentNo;
-    private String studentNum;
-    private String classNum;
-    private Map<Integer, Integer> points;
+    private int entYear; // 入試年度
+    private String studentNo; // 学生番号 (一意なID)
+    private String studentName; // 学生氏名
+    private String classNum; // クラス番号
+    private Map<Integer, Integer> points; // key: test NO, value: POINT
 
     public int getEntYear() {
         return entYear;
@@ -23,11 +23,11 @@ public class TestListSubject {
         this.studentNo = studentNo;
     }
 
-    public String getStudentNum() {
-        return studentNum;
+    public String getStudentName() {
+        return studentName;
     }
-    public void setStudentNum(String studentNum) {
-        this.studentNum = studentNum;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public String getClassNum() {

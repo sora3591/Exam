@@ -26,16 +26,16 @@
 						<select class="form-select" id="subject-select" name="subjectId">
 							<option value="0">--------</option>
 							<c:forEach var="subject" items="${subjectList}">
-								<option value="${subject.id}" <c:if test="${subject.id==selectedSubjectId}">selected</c:if>>${subject.name}</option>
+								<option value="${subject.cd}" <c:if test="${subject.cd==selectedSubjectId}">selected</c:if>>${subject.name}</option>
 							</c:forEach>
 						</select>
 					</div>
-					<div class="col-3">
-						<label class="form-label" for="test-select">テスト回数</label>
-						<select class="form-select" id="test-select" name="testNumber">
+					<div class="col-4">
+						<label class="form-label" for="class-num-select">クラス</label>
+						<select class="form-select" id="class-num-select" name="classNum">
 							<option value="0">--------</option>
-							<c:forEach var="testNum" items="${testNumberList}">
-								<option value="${testNum}" <c:if test="${testNum==selectedTestNumber}">selected</c:if>>${testNum}回</option>
+							<c:forEach var="classNum" items="${classList}">
+								<option value="${classNum}" <c:if test="${classNum==selectedClassNum}">selected</c:if>>${classNum}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -43,9 +43,7 @@
 						<button type="submit" class="btn btn-primary" id="search-button">検索</button>
 					</div>
 					<div class="mt-2 text-warning">
-						${errors.get("year") }
-						${errors.get("subjectId") }
-						${errors.get("testNumber") }
+						${errors.get("filter") }
 					</div>
 				</div>
 			</form>
@@ -53,39 +51,37 @@
 			<c:choose>
 				<c:when test="${scoreList != null && scoreList.size() > 0}">
 					<div class="mx-3 mb-2">検索結果: ${scoreList.size()} 件</div>
-					<table class="table table-hover mx-3">
-						<thead>
-							<tr>
-								<th>学生ID</th>
-								<th>学生氏名</th>
-								<th>得点</th>
-								<th>合否判定</th>
-								<th>順位</th>
-								<th>備考</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="score" items="${scoreList}">
+					<c:if test="${not empty scoreList}">
+						<h2>検索結果</h2>
+						<table class="table table-hover mx-3">
+							<thead>
 								<tr>
-									<td>${score.studentId}</td>
-									<td>${score.studentName}</td>
-									<td>${score.point}</td>
-									<td>
-										<c:choose>
-											<c:when test="${score.point >= 60}">
-												<span class="text-success">合格</span>
-											</c:when>
-											<c:otherwise>
-												<span class="text-danger">不合格</span>
-											</c:otherwise>
-										</c:choose>
-									</td>
-									<td>${score.rank}</td>
-									<td>${score.comment}</td>
+									<th>順位</th>
+									<th>氏名</th>
+									<th>最高点</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<c:forEach var="score" items="${scoreList}">
+									<tr>
+										<td>${score.rank}</td>
+										<td>${score.studentName}</td>
+										<td>
+											<c:set var="maxPoint" value="${requestScope['max_point_' + score.studentNo]}" />
+											<c:choose>
+												<c:when test="${maxPoint == -2147483648}"> <%-- Integer.MIN_VALUE --%>
+													- <%-- 点数がない場合はハイフン表示 --%>
+												</c:when>
+												<c:otherwise>
+													<c:out value="${maxPoint}" />
+												</c:otherwise>
+											</c:choose>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
 				</c:when>
 				<c:when test="${scoreList != null && scoreList.size() == 0}">
 					<div class="alert alert-info mx-3">検索条件に該当する成績データは存在しませんでした。</div>
