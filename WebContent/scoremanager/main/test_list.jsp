@@ -5,6 +5,7 @@
 <c:import url="/common/base.jsp">
 	<c:param name="title">
 		得点管理システム
+
 	</c:param>
 	<c:param name="scripts"></c:param>
 	<c:param name="content">
@@ -52,7 +53,7 @@
 					</div>
 
 					</form>
-					<form action = "test.action"method="get">
+					<form action = "TestListStudentExecute.action"method="get">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 
 					<div class="col-4">
