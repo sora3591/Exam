@@ -35,7 +35,7 @@ public class TestListStudentExecuteAction extends Action {
 			TestListStudentDao testListStudentDao = new TestListStudentDao();
 			student.setNo(stunum);
 			list = testListStudentDao.filter(student);
-			 session.setAttribute("list",list);
+			 session.setAttribute("testListStudents",list);
 			 res.sendRedirect("test_list.jsp");
 		}
 	}
