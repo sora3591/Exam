@@ -18,8 +18,8 @@ public class ClassUpdateAction extends Action {
         String classnum = req.getParameter("classnum");
 
         if (classnum != null && !classnum.isEmpty()) {
-            ClassNumDao dao = new ClassNumDao();
-            ClassNum classNum = dao.get(classnum, teacher.getSchool());
+            ClassNumDao cNumDao = new ClassNumDao();
+            ClassNum classNum = cNumDao.get(classnum, teacher.getSchool());
 
             if (classNum != null) {
                 req.setAttribute("classnum", classNum.getClass_num());
