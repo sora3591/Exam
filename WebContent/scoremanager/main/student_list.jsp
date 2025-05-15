@@ -80,20 +80,14 @@
 									</c:choose>
 								</td>
 								<td><a href="StudentUpdate.action?no=${student.no }">変更</a></td>
-
-
 							</tr>
 						</c:forEach>
 					</table>
 				</c:when>
 				<c:otherwise>
-					<div>学生情報が存在しませんでした。</div>
+					<div>成績情報が存在しませんでした。</div>
 				</c:otherwise>
 			</c:choose>
 		</section>
 	</c:param>
 </c:import>
-
-
-
-

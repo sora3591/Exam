@@ -19,7 +19,8 @@ public class TestListStudentDao extends Dao {
                 TestListStudent testListStudent = new TestListStudent();
                 testListStudent.setEntYear(rSet.getInt("ent_year"));
                 testListStudent.setClassNum(rSet.getString("class_num"));
-                testListStudent.setStudentNo(rSet.getString("student_no"));
+                // STUDENTテーブルの実際のカラム名 'no' を使用
+                testListStudent.setStudentNo(rSet.getString("no"));
                 testListStudent.setStudentName(rSet.getString("name"));
 
                 // point1とpoint2を取得し、nullの場合を考慮する
@@ -52,41 +53,48 @@ public class TestListStudentDao extends Dao {
         ResultSet rSet = null;
 
         // 学生情報の基本SELECT文
-        String sqlSelect = "SELECT s.ent_year, s.class_num, s.student_no, s.name";
+        // s.student_no を s.no に変更
+        String sqlSelect = "SELECT s.ent_year, s.class_num, s.no, s.name";
         String sqlFrom = " FROM student s";
-        String sqlWhere = " WHERE s.school_cd = ?";
+        String sqlWhere = ""; // Initialize sqlWhere
         String sqlGroupBy = "";
-        String sqlOrderBy = " ORDER BY s.ent_year, s.class_num, s.student_no";
+        String sqlOrderBy = " ORDER BY s.ent_year, s.class_num, s.no";
 
         List<Object> params = new ArrayList<>();
+
+        // Handle subject selection first, as its '?' appears in sqlFrom
+        if (subjectCd != null && !subjectCd.equals("0")) {
+            // T.NUM を T.NO に修正
+            sqlSelect += ", MAX(CASE WHEN t.no = 1 THEN t.point END) AS point1, MAX(CASE WHEN t.no = 2 THEN t.point END) AS point2";
+            sqlFrom += " LEFT JOIN test t ON s.no = t.student_no AND s.school_cd = t.school_cd AND t.subject_cd = ?";
+            params.add(subjectCd); // SubjectCd パラメータを最初に追加
+            sqlGroupBy = " GROUP BY s.ent_year, s.class_num, s.no, s.name";
+        } else {
+            sqlSelect += ", CAST(NULL AS INTEGER) AS point1, CAST(NULL AS INTEGER) AS point2";
+        }
+
+        // Build WHERE clause
+        // School Code is always a condition
+        sqlWhere = " WHERE s.school_cd = ?";
         params.add(school.getCd());
 
         if (entYear != 0) {
             sqlWhere += " AND s.ent_year = ?";
             params.add(entYear);
         }
-        if (classNum != null && !classNum.equals("0")) {
+        // classNum が空でなく、かつ "0" (すべて) でない場合に条件追加
+        if (classNum != null && !classNum.isEmpty() && !classNum.equals("0")) {
             sqlWhere += " AND s.class_num = ?";
             params.add(classNum);
         }
         if (studentNo != null && !studentNo.isEmpty()) {
-            sqlWhere += " AND s.student_no = ?";
+            sqlWhere += " AND s.no = ?";
             params.add(studentNo);
         }
 
-        // 学科ごとの試験点数を取得する部分
-        if (subjectCd != null && !subjectCd.equals("0")) {
-            sqlSelect += ", MAX(CASE WHEN t.num = 1 THEN t.point END) AS point1, MAX(CASE WHEN t.num = 2 THEN t.point END) AS point2";
-            sqlFrom += " LEFT JOIN test t ON s.student_no = t.student_no AND s.school_cd = t.school_cd";
-            sqlWhere += " AND t.subject_cd = ?"; // 選択された科目の試験をフィルタリング
-            params.add(subjectCd);
-            sqlGroupBy = " GROUP BY s.ent_year, s.class_num, s.student_no, s.name";
-        } else {
-            // 特定の科目が選択されていない場合は、点数のカラムにNULLを設定する
-            sqlSelect += ", CAST(NULL AS INTEGER) AS point1, CAST(NULL AS INTEGER) AS point2";
-        }
-
+        // Combine SQL parts
         String fullSql = sqlSelect + sqlFrom + sqlWhere + sqlGroupBy + sqlOrderBy;
+
         System.out.println("Executing SQL (TestListStudentDao): " + fullSql); // デバッグ用
         for (Object p : params) {
             System.out.println("Param: " + p);
