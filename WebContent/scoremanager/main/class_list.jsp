@@ -29,7 +29,7 @@
 							<tr>
 								<td>${class_num}</td>
 
-								<td><a href="ClassUpdate.action?no=${class_num }">変更</a></td>
+								<td><a href="ClassUpdate.action?classnum=${class_num }">変更</a></td>
 							</tr>
 						</c:forEach>
 					</table>
