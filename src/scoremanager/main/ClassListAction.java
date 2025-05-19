@@ -20,7 +20,7 @@ public class ClassListAction extends Action{
         List<String> classNums=new ArrayList<>();
         List<String> allclassnum = cNumDao.filter(teacher.getSchool());
         for (String classnum : allclassnum) {
-        	System.out.println(classnum);
+
         	classNums.add(classnum);
 
         }

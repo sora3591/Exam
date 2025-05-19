@@ -7,125 +7,93 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.School;
+import bean.Student;
 import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao {
+	// 基本となるSQL文（student_noによる検索）// 明日CLASS_NUMをSQLで取るところから
+	private String baseSql = "SELECT " +
+            "  STUDENT.NAME AS STUDENT_NAME, " +
+            "  STUDENT.CLASS_NUM AS CLASS_NUM, " +
+            "  STUDENT.NO AS STUDENT_NO, " +
+            "  SUBJECT.NAME AS SUBJECT_NAME, " +
+            "  SUBJECT.CD AS SUBJECT_CD, " +
+            "  TEST.SUBJECT_CD, " +
+            "  TEST.NO AS TEST_NO, " +
+            "  TEST.POINT AS TEST_POINT " +
+            "FROM " +
+            "  STUDENT " +
+            "JOIN " +
+            "  TEST ON STUDENT.NO = TEST.STUDENT_NO AND STUDENT.SCHOOL_CD = TEST.SCHOOL_CD " +
+            "JOIN " +
+            "  SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD AND TEST.SCHOOL_CD = SUBJECT.SCHOOL_CD " +
+            "WHERE " +
+            "  STUDENT.NO = ? " + //ここにデータを入力
+            "ORDER BY " +
+            "  STUDENT.NO, SUBJECT.CD, TEST.NO";
 
-    private List<TestListStudent> postFilter(ResultSet rSet) throws Exception {
-        List<TestListStudent> list = new ArrayList<>();
-        try {
-            while (rSet.next()) {
-                TestListStudent testListStudent = new TestListStudent();
-                testListStudent.setEntYear(rSet.getInt("ent_year"));
-                testListStudent.setClassNum(rSet.getString("class_num"));
-                testListStudent.setStudentNo(rSet.getString("student_no"));
-                testListStudent.setStudentName(rSet.getString("name"));
+	// ResultSetからクラスリストを作成するメソッド
+		private List<TestListStudent> postFilter(ResultSet rSet) throws Exception {
+			// Listを作成
+			List<TestListStudent> list = new ArrayList<>();
+			try {
+				//結果セットの各行をクラスオブジェクトに変換
+				while (rSet.next()) {
+					TestListStudent testListStudent = new TestListStudent();
+					testListStudent.setSubjectName(rSet.getString("subject_name"));
+					testListStudent.setSubjectCd(rSet.getString("subject_cd"));
+					testListStudent.setNum(rSet.getInt("TEST_NO"));
+					testListStudent.setPoint(rSet.getInt("TEST_POINT"));
+					System.out.println(rSet.getString("subject_name"));
+					System.out.println(rSet.getString("subject_cd"));
+					System.out.println(rSet.getInt("TEST_NO"));
+					System.out.println(rSet.getInt("TEST_POINT"));
+					System.out.println("------------------");
 
-                // point1とpoint2を取得し、nullの場合を考慮する
-                Object p1Obj = rSet.getObject("point1");
-                if (p1Obj != null) {
-                    testListStudent.setPoint1(((Number)p1Obj).intValue());
-                } else {
-                    testListStudent.setPoint1(null);
-                }
+					list.add(testListStudent);
+				}
+			} catch (SQLException | NullPointerException e) {
+				e.printStackTrace();
+			}
 
-                Object p2Obj = rSet.getObject("point2");
-                if (p2Obj != null) {
-                    testListStudent.setPoint2(((Number)p2Obj).intValue());
-                } else {
-                    testListStudent.setPoint2(null);
-                }
-                list.add(testListStudent);
-            }
-        } catch (SQLException | NullPointerException e) {
-            e.printStackTrace();
-            throw new Exception("Error processing result set: " + e.getMessage());
-        }
-        return list;
-    }
+			return list;
+		}
+		//学校、入学年度、クラスを使用したフィルタリング
+		public List<TestListStudent> filter(Student student) throws Exception {
+			List<TestListStudent> list = new ArrayList<>();
+			Connection connection = getConnection();
+			PreparedStatement statement = null;
+			ResultSet rSet = null;
 
-    public List<TestListStudent> filter(int entYear, String classNum, String subjectCd, String studentNo, School school) throws Exception {
-        List<TestListStudent> list = new ArrayList<>();
-        Connection connection = getConnection();
-        PreparedStatement statement = null;
-        ResultSet rSet = null;
+			try {
+				//SQLを連結
+				statement = connection.prepareStatement(baseSql);
+				statement.setString(1, student.getNo());
 
-        // 学生情報の基本SELECT文
-        String sqlSelect = "SELECT s.ent_year, s.class_num, s.student_no, s.name";
-        String sqlFrom = " FROM student s";
-        String sqlWhere = " WHERE s.school_cd = ?";
-        String sqlGroupBy = "";
-        String sqlOrderBy = " ORDER BY s.ent_year, s.class_num, s.student_no";
+				//SQLを実行
+				rSet = statement.executeQuery();
 
-        List<Object> params = new ArrayList<>();
-        params.add(school.getCd());
+				list = postFilter(rSet);
 
-        if (entYear != 0) {
-            sqlWhere += " AND s.ent_year = ?";
-            params.add(entYear);
-        }
-        if (classNum != null && !classNum.equals("0")) {
-            sqlWhere += " AND s.class_num = ?";
-            params.add(classNum);
-        }
-        if (studentNo != null && !studentNo.isEmpty()) {
-            sqlWhere += " AND s.student_no = ?";
-            params.add(studentNo);
-        }
-
-        // 学科ごとの試験点数を取得する部分
-        if (subjectCd != null && !subjectCd.equals("0")) {
-            sqlSelect += ", MAX(CASE WHEN t.num = 1 THEN t.point END) AS point1, MAX(CASE WHEN t.num = 2 THEN t.point END) AS point2";
-            sqlFrom += " LEFT JOIN test t ON s.student_no = t.student_no AND s.school_cd = t.school_cd";
-            sqlWhere += " AND t.subject_cd = ?"; // 選択された科目の試験をフィルタリング
-            params.add(subjectCd);
-            sqlGroupBy = " GROUP BY s.ent_year, s.class_num, s.student_no, s.name";
-        } else {
-            // 特定の科目が選択されていない場合は、点数のカラムにNULLを設定する
-            sqlSelect += ", CAST(NULL AS INTEGER) AS point1, CAST(NULL AS INTEGER) AS point2";
-        }
-
-        String fullSql = sqlSelect + sqlFrom + sqlWhere + sqlGroupBy + sqlOrderBy;
-        System.out.println("Executing SQL (TestListStudentDao): " + fullSql); // デバッグ用
-        for (Object p : params) {
-            System.out.println("Param: " + p);
-        }
-
-        try {
-            statement = connection.prepareStatement(fullSql);
-            for (int i = 0; i < params.size(); i++) {
-                statement.setObject(i + 1, params.get(i));
-            }
-
-            rSet = statement.executeQuery();
-            list = postFilter(rSet);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (rSet != null) {
-                try {
-                    rSet.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-        }
-        return list;
-    }
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				//リソースをclose
+				if (statement != null) {
+					try {
+						statement.close();
+					} catch (SQLException sqle) {
+						throw sqle;
+					}
+				}
+				if (connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException sqle) {
+						throw sqle;
+					}
+				}
+			}
+			return list;
+		}
 }

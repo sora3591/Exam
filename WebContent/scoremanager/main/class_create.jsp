@@ -9,7 +9,7 @@
 	<c:param name="scripts"></c:param>
 	<c:param name="content">
 		<section class="me-4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目情報登録</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">クラス情報登録</h2>
 
 
 			<form action ="ClassCreateExecute.action"method="get">
@@ -36,7 +36,7 @@
 					</div>
 					</form>
 
-					<a href="SubjectList.action">戻る</a>
+					<a href="ClassList.action">戻る</a>
 					<div class="mt-2 text-warning">${errors.get("ent_year") }</div>
 
 

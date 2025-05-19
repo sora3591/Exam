@@ -26,7 +26,7 @@ public class TestListStudentExecuteAction extends Action {
 
             session.setAttribute("errors", errors);  // セッションにエラーを保存
 
-            res.sendRedirect("Testlist.action");
+            res.sendRedirect("TestList.action");
 		}
 		else {
 	        List<TestListStudent> list = new ArrayList<>();
@@ -35,8 +35,10 @@ public class TestListStudentExecuteAction extends Action {
 			TestListStudentDao testListStudentDao = new TestListStudentDao();
 			student.setNo(stunum);
 			list = testListStudentDao.filter(student);
+
+
 			 session.setAttribute("list",list);
-			 res.sendRedirect("test_list.jsp");
+			 res.sendRedirect("test_list_student.jsp");
 		}
 	}
 
