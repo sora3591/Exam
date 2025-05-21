@@ -1,35 +1,43 @@
 
 package scoremanager.main;
 
+
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.ClassNum;
 import bean.Teacher;
 import dao.ClassNumDao;
 import tool.Action;
 
-public class ClassUpdateAction extends Action {
+public class ClassUpdateAction extends Action{
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        HttpSession session = req.getSession();
-        Teacher teacher = (Teacher) session.getAttribute("user");
+	public void execute(HttpServletRequest req,HttpServletResponse res)throws Exception{
+		HttpSession session=req.getSession();
+		Teacher teacher = (Teacher)session.getAttribute("user");
 
-        String classnum = req.getParameter("classnum");
+		String classNum = req.getParameter("classnum");
+		String no =req.getParameter("no");
 
-        if (classnum != null && !classnum.isEmpty()) {
-            ClassNumDao cNumDao = new ClassNumDao();
-            ClassNum classNum = cNumDao.get(classnum, teacher.getSchool());
+		ClassNumDao classNumDao = new ClassNumDao();
 
-            if (classNum != null) {
-                req.setAttribute("classnum", classNum.getClass_num());
-            } else {
-                req.setAttribute("error", "クラス情報が存在しませんでした。");
-            }
-        }
+        List<String> list = classNumDao.filter(teacher.getSchool());
 
-        req.getRequestDispatcher("class_update.jsp").forward(req, res);
-    }
+
+
+
+
+        req.setAttribute("no", no);
+        req.setAttribute("classnum", classNum);
+
+
+
+
+		req.getRequestDispatcher("class_update.jsp").forward(req, res);
+
+
+}
 }
 

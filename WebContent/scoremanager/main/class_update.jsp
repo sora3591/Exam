@@ -22,16 +22,26 @@
 
 			<form action ="ClassUpdateExecute.action"method="get">
 
+				<input type="hidden" name="no" value="${no}">
+
+				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+					<div class="col-4">
+						<label class="form-label" for="subject-no-input">元のクラス番号</label>
+						<input class="form-control" autocomplete="off"
+							id="no-input" maxlength="20" name="cd" placeholder=""
+							style="ime-mode: disabled;" type="text" value="${no}" readonly />
+					</div>
+				</div>
+
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<div class="col-4">
 						<label class="form-label" for="student-no-input">クラスコード</label>
 						<input class="form-control" autocomplete="off"
-							id="no-input" maxlength="20" name="classnum" placeholder="クラスコードを入力してください"
-							style="ime-mode: disabled;" type="text" value="${classnum}" required />
+							id="no-input" maxlength="3" name="classnum" placeholder="クラスコードを入力してください"
+							style="ime-mode: disabled;" type="text" value="${classnum2}" required />
 
 					</div>
 					<div class="mt-2 text-warning">${errors.get("f1") }</div>
-					<div class="mt-2 text-warning">${errors.get("f2") }</div>
 					</div>
 
 
