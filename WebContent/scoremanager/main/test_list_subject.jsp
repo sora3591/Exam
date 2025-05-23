@@ -9,14 +9,14 @@
 	<c:param name="scripts"></c:param>
 	<c:param name="content">
 		<section class="me-4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">科目別成績一覧</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績一覧(科目)</h2>
 
 			<form action="TestListSubjectExecute.action" method="post">
 				<div class="border mx-3 mb-3 py-2 px-3 rounded" id="filter-area">
 					<%-- 科目情報セクション --%>
 					<div class="row mb-3">
 						<%-- 新しいrowでラップ --%>
-						<div class="col-md-2 pt-1">
+						<div class="col-md-2 pt-4">
 							<%-- ラベル用の列、pt-1で少し上に調整 --%>
 							<h4 class="h5">科目情報</h4>
 						</div>
@@ -66,9 +66,12 @@
 				</div>
 			</form>
 			<form action="TestListStudentExecute.action" method="get">
-
-					<div class="border mx-3 mb-3 py-2 px-3 rounded" id="filter-area">
-
+				<div class="row border mx-3 mb-3 py-2 align-items-center rounded"
+					id="filter">
+					<div class="col-md-2 pt-1">
+						<%-- ラベル用の列、pt-1で少し上に調整 --%>
+						<h4 class="h5">学生情報</h4>
+					</div>
 
 					<div class="col-4">
 						<label class="form-label" for="subject-name-input">学生番号</label> <input
@@ -86,71 +89,66 @@
 
 			</form>
 
-			<div class="row border mx-3 mb-3 py-2 align-items-center rounded"
-				id="filter">
-
-				<%--	<c:if test="${searched}">
-						<c:choose>
-							<c:when test="${not empty scoreList}">
-								<c:if test="${not empty subjectName}">
-									<h3 class="h4 mb-3">検索結果： ${subjectName}</h3>
-								</c:if>
-								<c:if test="${empty subjectName}">
-									<h3 class="h4 mb-3">検索結果</h3>
-								</c:if>--%>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>入学年度</th>
-							<th>クラス</th>
-							<th>学生番号</th>
-							<th>氏名</th>
-							<!-- ★ ヘッダー追加 ★ -->
-							<th>1回</th>
-							<th>2回</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="student" items="${scoreList}">
-							<tr>
-								<td>${student.entYear}</td>
-								<td>${student.classNum}</td>
-								<td>${student.studentNo}</td>
-								<td>${student.studentName}</td>
-								<!-- ディスプレイスコア、nullなら-を表示 -->
-								<td><c:choose>
-										<c:when test="${student.getPoint(1) != null}">${student.getPoint(2)}</c:when>
-										<c:otherwise>-</c:otherwise>
-									</c:choose></td>
-								<td><c:choose>
-										<c:when test="${student.getPoint(2) != null}">${student.getPoint(2)}</c:when>
-										<c:otherwise>-</c:otherwise>
-									</c:choose></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<%--	</c:when>
-							<c:otherwise>
-								<p>学生情報が存在しませんでした</p>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-									</div>
 
 
-
-					<%-- メッセージ表示エリア --%>
 				<c:choose>
-					<c:when test="${not empty error_message}">
-						<p class="text-warning">${error_message}</p>
-						<%-- text-danger から text-warning へ --%>
+					<c:when test="${scoreList.size()>0}">
+						<div>科目 :${subjectIdStr}</div>
+						<table class="table table-hover">
+
+								<thead>
+									<tr>
+										<th>入学年度</th>
+										<th>クラス</th>
+										<th>学生番号</th>
+										<th>氏名</th>
+										<!-- ★ ヘッダー追加 ★ -->
+										<th>1回</th>
+										<th>2回</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="student" items="${scoreList}">
+										<tr>
+											<td>${student.entYear}</td>
+											<td>${student.classNum}</td>
+											<td>${student.studentNo}</td>
+											<td>${student.studentName}</td>
+											<!-- ディスプレイスコア、nullなら-を表示 -->
+											<td><c:choose>
+													<c:when test="${student.getPoint(1) != null}">${student.getPoint(2)}</c:when>
+													<c:otherwise>-</c:otherwise>
+												</c:choose></td>
+											<td><c:choose>
+													<c:when test="${student.getPoint(2) != null}">${student.getPoint(2)}</c:when>
+													<c:otherwise>-</c:otherwise>
+												</c:choose></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+
+
+						</table>
 					</c:when>
-					<c:when test="${not searched}">
-						<p class="text-info">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
-						<%-- テキスト変更、text-info クラス追加 --%>
-					</c:when>
+					<c:otherwise>
+						<div>学生情報が存在しませんでした。</div>
+					</c:otherwise>
 				</c:choose>
+
+
+
+
+			<%-- メッセージ表示エリア --%>
+			<c:choose>
+				<c:when test="${not empty error_message}">
+					<p class="text-warning">${error_message}</p>
+					<%-- text-danger から text-warning へ --%>
+				</c:when>
+				<%--<c:when test="${not searched}">
+					<p class="text-info">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
+					<%-- テキスト変更、text-info クラス追加
+				</c:when>--%>
+			</c:choose>
 		</section>
 
 	</c:param>

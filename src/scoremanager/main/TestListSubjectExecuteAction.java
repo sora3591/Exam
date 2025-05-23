@@ -29,6 +29,8 @@ public class TestListSubjectExecuteAction extends Action {
 
 
 
+	        String f3 = req.getParameter("f3");
+
 
 			String entYearStr = "";// 入力された入学年度
 			String classNum1 = "";// 入力されたクラス番号
@@ -38,6 +40,11 @@ public class TestListSubjectExecuteAction extends Action {
 			ClassNumDao cNumDao = new ClassNumDao();// クラス番号Daoを初期化
 			SubjectDao subjectDao = new SubjectDao();
 			int times = 0; // 回数
+
+			Subject subjectname=subjectDao.get(f3, teacher.getSchool());
+			System.out.println(subjectname.getName()+"------------------");
+
+
 
 			List<Integer> entYearSet = new ArrayList<>();
 			// １０年前から１年後まで年をリストに追加
@@ -67,20 +74,7 @@ public class TestListSubjectExecuteAction extends Action {
 
 			req.setAttribute("ent_year_set", entYearSet);
 			req.setAttribute("class_num_set", list);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			req.setAttribute("subjectIdStr", subjectname.getName());
 
 
 
@@ -128,6 +122,8 @@ public class TestListSubjectExecuteAction extends Action {
 	        System.out.println(yearStr);
 	        System.out.println(classNumStr);
 	        System.out.println(subjectIdStr);
+//	        req.setAttribute("subjectIdStr", subjectIdStr);
+
 
 
 	        // エラーメッセージ用のマップ

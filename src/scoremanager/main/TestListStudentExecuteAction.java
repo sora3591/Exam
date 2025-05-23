@@ -15,6 +15,7 @@ import bean.Subject;
 import bean.Teacher;
 import bean.TestListStudent;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestListStudentDao;
 import tool.Action;
@@ -31,11 +32,12 @@ public class TestListStudentExecuteAction extends Action {
 		// セッションからユーザー情報を取得
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
+        StudentDao sDao = new StudentDao();
 
 
 
-
-
+        String name =req.getParameter("name");
+        Student students = sDao.get(name);
 		String entYearStr = "";// 入力された入学年度
 		String classNum1 = "";// 入力されたクラス番号
 		int entYear = 0;// 入学年度
@@ -73,6 +75,8 @@ public class TestListStudentExecuteAction extends Action {
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("class_num_set", list1);
+		req.setAttribute("name",name);
+		req.setAttribute("student",students);
 
 
 

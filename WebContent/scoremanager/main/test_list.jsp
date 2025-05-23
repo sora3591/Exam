@@ -9,14 +9,15 @@
 	<c:param name="scripts"></c:param>
 	<c:param name="content">
 		<section class="me-4">
-			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生管理</h2>
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
 
 			<form action="TestListSubjectExecute.action" method="post">
-				<div class="border mx-3 mb-3 py-2 px-3 rounded" id="filter-area">
+				<div class="row border mx-3 mb-3 py-2 align-items-center rounded"
+					id="filter">
 					<%-- 科目情報セクション --%>
 					<div class="row mb-3">
 						<%-- 新しいrowでラップ --%>
-						<div class="col-md-2 pt-1">
+						<div class="col-md-2 pt-4">
 							<%-- ラベル用の列、pt-1で少し上に調整 --%>
 							<h4 class="h5">科目情報</h4>
 						</div>
@@ -68,6 +69,12 @@
 			<form action="TestListStudentExecute.action" method="get">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded"
 					id="filter">
+
+
+					<div class="col-md-2 pt-1">
+							<%-- ラベル用の列、pt-1で少し上に調整 --%>
+							<h4 class="h5">学生情報</h4>
+						</div>
 
 					<div class="col-4">
 						<label class="form-label" for="subject-name-input">学生番号</label> <input

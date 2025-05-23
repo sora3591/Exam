@@ -19,6 +19,8 @@ public class TestListAction extends Action {
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher) session.getAttribute("user");
 
+
+		
 		String entYearStr = "";// 入力された入学年度
 		String classNum = "";// 入力されたクラス番号
 		int entYear = 0;// 入学年度
@@ -56,6 +58,7 @@ public class TestListAction extends Action {
 
 		req.setAttribute("ent_year_set", entYearSet);
 		req.setAttribute("class_num_set", list);
+		
 
 		req.getRequestDispatcher("test_list.jsp").forward(req, res);
 
